@@ -1,3 +1,7 @@
-body{
-  background-color: aqua;
+.weather-error {
+  color: #c62828;
+}
+
+.weather-meta {
+  margin-top: 8px;
 }

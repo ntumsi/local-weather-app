@@ -1,0 +1,24 @@
+<div *ngIf="loading" fxLayoutAlign="center center" class="vertical-margin">
+  <mat-spinner [diameter]="32" aria-label="Loading forecast data"></mat-spinner>
+</div>
+
+<div *ngIf="errorMessage && !loading" class="mat-caption weather-error">
+  {{errorMessage}}
+</div>
+
+<mat-list *ngIf="forecast.length && !loading && !errorMessage">
+  <mat-list-item *ngFor="let day of forecast">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px" class="forecast-row" fxFlex="100%">
+      <img [src]="day.image" class="forecast-icon" alt="Forecast icon">
+      <div fxFlex>
+        <div class="mat-subheading-2 no-margin">{{day.date | date:'EEE, MMM d'}}</div>
+        <div class="mat-caption">{{day.description}}</div>
+      </div>
+      <div class="right mat-caption">
+        <span class="sr-only">Minimum and maximum temperature:</span>
+        {{day.minTemperature | number:'1.0-0'}} / {{day.maxTemperature | number:'1.0-0'}}
+        {{unit === 'metric' ? '°C' : '°F'}}
+      </div>
+    </div>
+  </mat-list-item>
+</mat-list>

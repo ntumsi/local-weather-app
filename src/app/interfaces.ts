@@ -1,9 +1,22 @@
 export interface ICurrentWeather {
-  city: String;
-  country: String;
+  city: string;
+  country: string;
   date: number;
-  image: String;
+  image: string;
   temperature: number;
-  description: String;
-
+  description: string;
+  humidity: number;
+  pressure: number;
+  windSpeed: number;
 }
+
+export interface IForecastItem {
+  date: number;
+  temperature: number;
+  minTemperature: number;
+  maxTemperature: number;
+  description: string;
+  image: string;
+}
+
+export type TemperatureUnit = 'imperial' | 'metric';

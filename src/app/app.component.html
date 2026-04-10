@@ -1,12 +1,69 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<mat-toolbar color="primary">
+  <span>{{title}}</span>
+</mat-toolbar>
 
- <h1>{{title}}</h1>
+<div class="content-margin">
+  <div fxLayoutAlign="center">
+    <div class="mat-caption vertical-margin">
+      Your city, your forecast, right now.
+    </div>
+  </div>
 
-<div>
-  Your City, Your Forecast, right now!
+  <mat-card class="search-card">
+    <div fxLayout="row wrap" fxLayoutGap="12px" fxLayoutAlign="start center">
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput [(ngModel)]="city" placeholder="City">
+      </mat-form-field>
 
-</div>
-<h2>Current Weather</h2>
-<app-current-weather></app-current-weather>
+      <mat-form-field appearance="outline">
+        <mat-label>Country code</mat-label>
+        <input matInput [(ngModel)]="country" placeholder="US, UK, IN...">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Units</mat-label>
+        <mat-select [(value)]="selectedUnit">
+          <mat-option value="imperial">Fahrenheit</mat-option>
+          <mat-option value="metric">Celsius</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="useSearchedLocation()">Search</button>
+      <button mat-stroked-button color="primary" (click)="useMyLocation()">Use My Location</button>
+    </div>
+    <div *ngIf="geoError" class="mat-caption weather-error">{{geoError}}</div>
+  </mat-card>
+
+  <div fxLayout="row wrap" fxLayoutGap="16px">
+    <div fxFlex.gt-sm="350px" fxFlex="100%">
+      <mat-card>
+        <mat-card-title>
+          <div class="mat-headline">Current Weather</div>
+        </mat-card-title>
+        <app-current-weather
+          [city]="city"
+          [country]="country"
+          [latitude]="latitude"
+          [longitude]="longitude"
+          [unit]="selectedUnit">
+        </app-current-weather>
+      </mat-card>
+    </div>
+
+    <div fxFlex.gt-sm="450px" fxFlex="100%">
+      <mat-card>
+        <mat-card-title>
+          <div class="mat-headline">5-Day Forecast</div>
+        </mat-card-title>
+        <app-forecast
+          [city]="city"
+          [country]="country"
+          [latitude]="latitude"
+          [longitude]="longitude"
+          [unit]="selectedUnit">
+        </app-forecast>
+      </mat-card>
+    </div>
+  </div>
 </div>
