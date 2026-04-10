@@ -29,4 +29,32 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('mat-toolbar').textContent).toContain('LocalCast Weather');
   }));
+
+  it('should clear coordinates when using searched location', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    app.latitude = 10;
+    app.longitude = 20;
+    app.geoError = 'error';
+    app.useSearchedLocation();
+    expect(app.latitude).toBeNull();
+    expect(app.longitude).toBeNull();
+    expect(app.geoError).toBe('');
+  });
+
+  it('should set coordinates from geolocation', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    spyOn(navigator.geolocation, 'getCurrentPosition').and.callFake((successCallback: Function) => {
+      successCallback({
+        coords: {
+          latitude: 51.5,
+          longitude: -0.1
+        }
+      });
+    });
+    app.useMyLocation();
+    expect(app.latitude).toBe(51.5);
+    expect(app.longitude).toBe(-0.1);
+  });
 });

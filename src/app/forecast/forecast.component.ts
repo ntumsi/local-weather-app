@@ -31,16 +31,16 @@ export class ForecastComponent implements OnInit, OnChanges {
   }
 
   private loadForecast() {
-    if (!this.city || !this.country) {
-      if (this.latitude === null || this.longitude === null) {
-        return;
-      }
+    const hasCitySearch = !!this.city && !!this.country;
+    const hasCoordinates = this.latitude !== null && this.longitude !== null;
+    if (!hasCitySearch && !hasCoordinates) {
+      return;
     }
 
     this.loading = true;
     this.errorMessage = '';
 
-    const forecastRequest = this.latitude !== null && this.longitude !== null
+    const forecastRequest = hasCoordinates
       ? this.weatherService.getForecastByCoords(this.latitude, this.longitude, this.unit)
       : this.weatherService.getForecastByCity(this.city, this.country, this.unit);
 

@@ -44,15 +44,15 @@ export class CurrentWeatherComponent implements OnInit, OnChanges {
   }
 
   private loadWeather() {
-    if (!this.city || !this.country) {
-      if (this.latitude === null || this.longitude === null) {
-        return;
-      }
+    const hasCitySearch = !!this.city && !!this.country;
+    const hasCoordinates = this.latitude !== null && this.longitude !== null;
+    if (!hasCitySearch && !hasCoordinates) {
+      return;
     }
 
     this.errorMessage = '';
     this.loading = true;
-    const weatherRequest = this.latitude !== null && this.longitude !== null
+    const weatherRequest = hasCoordinates
       ? this.weatherService.getCurrentWeatherByCoords(this.latitude, this.longitude, this.unit)
       : this.weatherService.getCurrentWeather(this.city, this.country, this.unit);
 
