@@ -1,5 +1,5 @@
 <div *ngIf="loading" fxLayoutAlign="center center" class="vertical-margin">
-  <mat-spinner [diameter]="32"></mat-spinner>
+  <mat-spinner [diameter]="32" aria-label="Loading forecast data"></mat-spinner>
 </div>
 
 <div *ngIf="errorMessage && !loading" class="mat-caption weather-error">
@@ -15,6 +15,7 @@
         <div class="mat-caption">{{day.description}}</div>
       </div>
       <div class="right mat-caption">
+        <span class="sr-only">Minimum and maximum temperature:</span>
         {{day.minTemperature | number:'1.0-0'}} / {{day.maxTemperature | number:'1.0-0'}}
         {{unit === 'metric' ? '°C' : '°F'}}
       </div>

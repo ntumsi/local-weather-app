@@ -1,5 +1,5 @@
 <div *ngIf="loading" fxLayoutAlign="center center" class="vertical-margin">
-  <mat-spinner [diameter]="32"></mat-spinner>
+  <mat-spinner [diameter]="32" aria-label="Loading weather data"></mat-spinner>
 </div>
 
 <div *ngIf="errorMessage && !loading" class="mat-caption weather-error">
