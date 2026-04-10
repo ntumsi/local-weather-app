@@ -41,7 +41,7 @@ export class ForecastComponent implements OnInit, OnChanges {
     this.errorMessage = '';
 
     const forecastRequest = hasCoordinates
-      ? this.weatherService.getForecastByCoords(this.latitude, this.longitude, this.unit)
+      ? this.weatherService.getForecastByCoords(this.latitude as number, this.longitude as number, this.unit)
       : this.weatherService.getForecastByCity(this.city, this.country, this.unit);
 
     forecastRequest.subscribe(
