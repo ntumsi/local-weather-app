@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { IForecastItem, TemperatureUnit } from '../interfaces';
+import { Observable } from 'rxjs';
 import { WeatherService } from '../weather/weather.service';
 
 @Component({
@@ -40,9 +41,17 @@ export class ForecastComponent implements OnInit, OnChanges {
     this.loading = true;
     this.errorMessage = '';
 
-    const forecastRequest = hasCoordinates
-      ? this.weatherService.getForecastByCoords(this.latitude, this.longitude, this.unit)
-      : this.weatherService.getForecastByCity(this.city, this.country, this.unit);
+    let forecastRequest: Observable<IForecastItem[]>;
+    if (hasCoordinates) {
+      const latitude = this.latitude;
+      const longitude = this.longitude;
+      if (latitude === null || longitude === null) {
+        return;
+      }
+      forecastRequest = this.weatherService.getForecastByCoords(latitude, longitude, this.unit);
+    } else {
+      forecastRequest = this.weatherService.getForecastByCity(this.city, this.country, this.unit);
+    }
 
     forecastRequest.subscribe(
       (data) => {
