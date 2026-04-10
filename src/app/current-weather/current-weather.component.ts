@@ -53,7 +53,7 @@ export class CurrentWeatherComponent implements OnInit, OnChanges {
     this.errorMessage = '';
     this.loading = true;
     const weatherRequest = hasCoordinates
-      ? this.weatherService.getCurrentWeatherByCoords(this.latitude as number, this.longitude as number, this.unit)
+      ? this.weatherService.getCurrentWeatherByCoords(this.latitude, this.longitude, this.unit)
       : this.weatherService.getCurrentWeather(this.city, this.country, this.unit);
 
     weatherRequest.subscribe(
