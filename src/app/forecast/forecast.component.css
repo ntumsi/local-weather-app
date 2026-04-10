@@ -1,0 +1,12 @@
+.weather-error {
+  color: #c62828;
+}
+
+.forecast-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.forecast-row {
+  width: 100%;
+}

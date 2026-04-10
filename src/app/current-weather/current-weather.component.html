@@ -1,16 +1,31 @@
-<div *ngIf="current">
+<div *ngIf="loading" fxLayoutAlign="center center" class="vertical-margin">
+  <mat-spinner [diameter]="32"></mat-spinner>
+</div>
+
+<div *ngIf="errorMessage && !loading" class="mat-caption weather-error">
+  {{errorMessage}}
+</div>
+
+<div *ngIf="current && !loading && !errorMessage">
   <div fxLayout="row">
      <div fxFlex="66%"> {{current?.city}}, {{current?.country}} </div>
-     <div fxFlex class="right mat-subheading-2 no-margin">{{current?.date | date:'fullDate'}}</div>
+      <div fxFlex class="right mat-subheading-2 no-margin">{{current?.date | date:'fullDate'}}</div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
       <div fxFlex="66%">
     <img style="zoom: 300%" [src] ='current.image'>
     </div>
-    <div fxFlex class="right mat-display-2 no-margin">{{current?.temperature | number: '1.0-0'}} &#8457; </div>
+    <div fxFlex class="right mat-display-2 no-margin">
+      {{current?.temperature | number: '1.0-0'}}
+      <span class="mat-title">{{unit === 'metric' ? '°C' : '°F'}}</span>
+    </div>
     </div>
     <div fxLayoutAlign="center" class="mat-caption">
       {{current?.description}}
     </div>
-
+    <div fxLayout="row" class="weather-meta mat-caption vertical-margin">
+      <div fxFlex>Humidity: {{current?.humidity}}%</div>
+      <div fxFlex class="right">Pressure: {{current?.pressure}} hPa</div>
+    </div>
+    <div class="mat-caption">Wind: {{current?.windSpeed}} {{unit === 'metric' ? 'm/s' : 'mph'}}</div>
 </div>

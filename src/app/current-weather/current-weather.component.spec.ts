@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { CurrentWeatherComponent } from './current-weather.component';
 import { WeatherService } from '../weather/weather.service';
@@ -12,6 +13,7 @@ describe('CurrentWeatherComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CurrentWeatherComponent ],
       providers: [ {provide: WeatherService, useClass: WeatherServiceFake}],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));
